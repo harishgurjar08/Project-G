@@ -1,5 +1,5 @@
 # PROJECT G — Defense Intelligence System
-### Streamlit Dashboard · Powered by Google Gemini (Free Tier)
+### Streamlit Dashboard · Powered by Google Gemini 
 
 ---
 
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 
 ### 3. Run the app
 ```bash
-streamlit run app.py
+python3 -m streamlit run app.py
 ```
 
 ### 4. Open in browser
@@ -51,7 +51,7 @@ Paste your Gemini key into the sidebar input field — all 3 modules activate in
 
 ---
 
-## Free Tier Limits (Gemini 1.5 Flash)
+## Free Tier Limits (Gemini 2.5 Flash)
 | Limit | Value |
 |-------|-------|
 | Requests per minute | 15 |
