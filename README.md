@@ -1,6 +1,8 @@
 # PROJECT G — Defense Intelligence System
 ### Streamlit Dashboard · Powered by Google Gemini 
 
+
+url- https://project-g-tmczz5mwf2jtmpxxj9m5rb.streamlit.app/
 ---
 
 ## Project Structure
