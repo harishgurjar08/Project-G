@@ -1,0 +1,137 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import streamlit as st
+from utils.sidebar import inject_global_css, render_sidebar, panel_header, report_box
+from utils.gemini import call_gemini_vision
+
+st.set_page_config(
+    page_title="MODULE 01 — Image Intel | PROJECT G",
+    page_icon="🔍",
+    layout="wide",
+)
+
+inject_global_css()
+api_key = render_sidebar()
+
+# ── Page header ──────────────────────────────────────────────────────────────
+st.markdown("# MODULE 01")
+st.markdown("<p style='font-family:Orbitron,monospace; font-size:11px; letter-spacing:3px; color:#5a8c5f; margin-top:-12px;'>DEEPFAKE IMAGE ANALYSIS — VISUAL INTELLIGENCE</p>", unsafe_allow_html=True)
+st.markdown("---")
+
+panel_header("MOD-01", "FORENSIC IMAGE ANALYSIS")
+
+st.markdown("""
+<div style='background:#0d1f10; border:1px solid #1a3d1e; border-top:none;
+            border-radius:0 0 2px 2px; padding:20px;'>
+    <div style='font-size:12px; color:#5a8c5f; line-height:1.9; margin-bottom:16px;'>
+        OBJECTIVE: Forensic analysis to determine if an image is real or AI-generated.<br>
+        Assesses operational risk for intelligence usage in the field.
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# ── Upload ────────────────────────────────────────────────────────────────────
+uploaded_file = st.file_uploader(
+    "UPLOAD IMAGE FOR ANALYSIS",
+    type=["jpg", "jpeg", "png", "webp"],
+    label_visibility="visible",
+)
+
+if uploaded_file:
+    col_img, col_info = st.columns([1, 1])
+    with col_img:
+        st.image(uploaded_file, caption="UPLOADED — AWAITING ANALYSIS", use_container_width=True)
+    with col_info:
+        st.markdown(f"""
+        <div style='background:#0d1f10; border:1px solid #1a3d1e; border-radius:2px; padding:16px; font-size:12px; line-height:2.2;'>
+            <div style='font-family:Orbitron,monospace; font-size:9px; letter-spacing:2px; color:#5a8c5f; margin-bottom:12px;'>FILE METADATA</div>
+            <span style='color:#5a8c5f;'>► FILENAME &nbsp;</span><span style='color:#b0ffb8;'>{uploaded_file.name}</span><br>
+            <span style='color:#5a8c5f;'>► TYPE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#b0ffb8;'>{uploaded_file.type}</span><br>
+            <span style='color:#5a8c5f;'>► SIZE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#b0ffb8;'>{uploaded_file.size / 1024:.1f} KB</span><br>
+            <span style='color:#5a8c5f;'>► STATUS &nbsp;&nbsp;&nbsp;</span><span style='color:#ffb800;'>READY FOR ANALYSIS</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# ── Analyze button ────────────────────────────────────────────────────────────
+btn_disabled = not (uploaded_file and api_key and api_key.startswith("AIza"))
+
+if not api_key or not api_key.startswith("AIza"):
+    st.info("⚠ Paste your Gemini API key in the sidebar to activate this module.")
+
+if st.button("▶ INITIATE FORENSIC ANALYSIS", disabled=btn_disabled, key="analyze_img"):
+    SYSTEM = (
+        "You are PROJECT G, a Defense Intelligence AI specializing in forensic visual analysis. "
+        "Analyze images to determine if they are real or AI-generated/deepfake. "
+        "Respond in strict military command-center format. Be factual and analytical. "
+        "No casual language, no emojis."
+    )
+
+    PROMPT = """Analyze this image for signs of deepfake or AI generation. Cover: facial deformation, lighting/shadow inconsistencies, edge blending artifacts, texture anomalies, background distortion, compression artifacts.
+
+Respond EXACTLY in this format:
+
+DEEPFAKE ANALYSIS REPORT
+════════════════════════════════════════
+
+Deepfake Probability     : XX%
+AI Generation Likelihood : XX%
+Likely Subject           : [describe main object/person/scene]
+
+Threat Assessment        : [LOW RISK / MEDIUM RISK / HIGH RISK]
+
+Key Indicators Detected:
+• [Specific visual indicator 1]
+• [Specific visual indicator 2]
+• [Specific visual indicator 3]
+• [Specific visual indicator 4]
+
+Metadata Analysis:
+• [Observation about compression, artifacts, or digital fingerprints]
+
+Operational Note:
+• [1-line military implication]
+
+ANALYST VERDICT: [1 sentence final assessment]"""
+
+    with st.spinner("[ PROCESSING — FORENSIC ANALYSIS IN PROGRESS... ]"):
+        try:
+            image_bytes = uploaded_file.read()
+            result = call_gemini_vision(
+                prompt=PROMPT,
+                system=SYSTEM,
+                api_key=api_key,
+                image_bytes=image_bytes,
+                mime_type=uploaded_file.type,
+            )
+
+            st.markdown("---")
+            panel_header("REPORT", "DEEPFAKE ANALYSIS OUTPUT")
+            report_box(result)
+
+            # Metrics row
+            st.markdown("<br>", unsafe_allow_html=True)
+            lines = result.split("\n")
+            deepfake_pct, ai_pct, threat = "N/A", "N/A", "N/A"
+            for line in lines:
+                if "Deepfake Probability" in line and ":" in line:
+                    deepfake_pct = line.split(":")[-1].strip()
+                if "AI Generation Likelihood" in line and ":" in line:
+                    ai_pct = line.split(":")[-1].strip()
+                if "Threat Assessment" in line and ":" in line:
+                    threat = line.split(":")[-1].strip()
+
+            m1, m2, m3 = st.columns(3)
+            m1.metric("DEEPFAKE PROBABILITY", deepfake_pct)
+            m2.metric("AI GENERATION LIKELIHOOD", ai_pct)
+            m3.metric("THREAT ASSESSMENT", threat)
+
+        except Exception as e:
+            st.error(f"⚠ ERROR: {e}")
+
+st.markdown("<br><div style='font-size:10px; color:#5a8c5f; text-align:center; letter-spacing:2px;'>PROJECT G · MODULE 01 · VISUAL INTELLIGENCE</div>", unsafe_allow_html=True)
