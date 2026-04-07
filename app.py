@@ -295,7 +295,7 @@ st.markdown("""
     <div style='line-height:2.4; font-size:12px;'>
         <span style='color:#5a8c5f;'>► AI ENGINE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span style='color:#00ffe1;'>ONLINE</span>
-        <span style='color:#5a8c5f;'> — Gemini 1.5 Flash (Google · Free Tier)</span><br>
+        <span style='color:#5a8c5f;'> — 1.5 Flash (can be upgraded further)</span><br>
         <span style='color:#5a8c5f;'>► MODULE 01 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span style='color:#00ff41;'>READY</span>
         <span style='color:#5a8c5f;'> — Deepfake Visual Analysis</span><br>
