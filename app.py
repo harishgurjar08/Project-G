@@ -167,8 +167,10 @@ hr { border-color: #1a3d1e !important; }
     z-index: 9999;
 }
 
-/* Hide Streamlit branding */
-#MainMenu, footer, header { visibility: hidden; }
+/* FIXED: Hide Streamlit branding WITHOUT hiding sidebar */
+[data-testid="stHeader"] { visibility: hidden !important; }
+footer { visibility: hidden !important; }
+#MainMenu { visibility: hidden !important; }
 </style>
 """, unsafe_allow_html=True)
 
