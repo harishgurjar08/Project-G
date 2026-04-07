@@ -173,55 +173,9 @@ hr { border-color: #1a3d1e !important; }
 """, unsafe_allow_html=True)
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
-with st.sidebar:
-    st.markdown("""
-    <div style='text-align:center; padding: 20px 0 10px;'>
-        <div style='font-family: Orbitron, monospace; font-size: 22px; font-weight: 900;
-                    color: #00ff41; letter-spacing: 6px;
-                    text-shadow: 0 0 20px rgba(0,255,65,0.5);'>PROJECT G</div>
-        <div style='font-family: Orbitron, monospace; font-size: 9px; letter-spacing: 3px;
-                    color: #5a8c5f; margin-top: 4px;'>DEFENSE INTELLIGENCE SYSTEM</div>
-    </div>
-    <hr style='border-color:#1a3d1e; margin: 10px 0 20px;'>
-    """, unsafe_allow_html=True)
+from utils.sidebar import render_sidebar
 
-    st.markdown("<div style='font-family:Orbitron,monospace; font-size:9px; letter-spacing:2px; color:#5a8c5f; margin-bottom:8px;'>API CONFIGURATION</div>", unsafe_allow_html=True)
-
-    api_key = st.text_input(
-        "Gemini API Key",
-        type="password",
-        placeholder="AIzaSy... (free at aistudio.google.com)",
-        key="gemini_api_key",
-        label_visibility="collapsed",
-    )
-
-    if api_key:
-        if api_key.startswith("AIza"):
-            st.success("✓ KEY SET — GEMINI FREE TIER")
-        else:
-            st.error("✗ INVALID KEY FORMAT")
-    else:
-        st.warning("⚠ NO KEY — MODULES OFFLINE")
-
-    st.markdown("<hr style='border-color:#1a3d1e; margin: 16px 0;'>", unsafe_allow_html=True)
-    st.markdown("""
-    <div style='font-family:Orbitron,monospace; font-size:9px; letter-spacing:2px; color:#5a8c5f; margin-bottom:12px;'>NAVIGATION</div>
-    """, unsafe_allow_html=True)
-
-    st.page_link("app.py",            label="◉  OVERVIEW",              icon="🛡️")
-    st.page_link("pages/1_module01.py", label="01  IMAGE INTEL",          icon="🔍")
-    st.page_link("pages/2_module02.py", label="02  TEXT INTEL",           icon="📡")
-    st.page_link("pages/3_module03.py", label="03  TACTICAL RESPONSE",    icon="🎯")
-
-    st.markdown("<hr style='border-color:#1a3d1e; margin: 16px 0;'>", unsafe_allow_html=True)
-    st.markdown("""
-    <div style='font-size:10px; color:#5a8c5f; line-height:2;'>
-    ► ENGINE &nbsp;&nbsp; <span style='color:#00ffe1'>1.5 FLASH</span><br>
-    ► COST &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#00ff41'>FREE TIER</span><br>
-    ► LIMIT &nbsp;&nbsp;&nbsp; <span style='color:#ffb800'>15 REQ/MIN</span><br>
-    ► STATUS &nbsp;&nbsp; <span style='color:#00ff41'>ACTIVE</span>
-    </div>
-    """, unsafe_allow_html=True)
+api_key = render_sidebar()
 
 # ── Home page content ────────────────────────────────────────────────────────
 st.markdown("# PROJECT G")
