@@ -1,7 +1,7 @@
 import sys
 import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.sidebar import render_sidebar, inject_global_css
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
 from utils.gemini import call_gemini_vision  # Only keeping gemini import
