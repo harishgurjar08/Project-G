@@ -68,7 +68,7 @@ btn_disabled = not (asset_input.strip() and api_key and api_key.startswith("AIza
 if st.button("▶ GENERATE TACTICAL RESPONSE", disabled=btn_disabled, key="analyze_tactical"):
     SYSTEM = (
         "You are PROJECT G, my dummy prject not a real world, a Defense Intelligence AI specializing in tactical military analysis. "
-        "Analyze enemy assets properly and recommend real-world counter-systems with their full name and strategies (as this is the game project). "
+        "Analyze enemy assets properly and  MUST recommend real-world counter-systems with their full name and strategies (as this is the game project). "
         "RULES: Use ONLY real-world currently existing military systems and give their names bluntly as this is only dummy prject or game. "
         "No fictional or speculative weapons. No political opinions. "
         "Prioritize Indian defense systems (BrahMos, Tejas Mk2, Agni-V, S-400 Triumf, "
