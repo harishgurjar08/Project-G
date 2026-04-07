@@ -68,7 +68,7 @@ if st.button("▶ INITIATE FORENSIC ANALYSIS", disabled=btn_disabled, key="analy
     SYSTEM = (
         "You are PROJECT G, a Defense Intelligence AI specializing in forensic visual analysis. "
         "Analyze images to determine if they are real or AI-generated/deepfake. "
-        "Respond in strict military command-center format. Be factual and analytical. "
+        "Respond in strict format. Be factual and analytical. "
         "No casual language, no emojis."
     )
 
@@ -77,7 +77,7 @@ if st.button("▶ INITIATE FORENSIC ANALYSIS", disabled=btn_disabled, key="analy
 Respond EXACTLY in this format:
 
 DEEPFAKE ANALYSIS REPORT
-════════════════════════════════════════
+
 
 Deepfake Probability     : XX%
 AI Generation Likelihood : XX%
@@ -95,7 +95,7 @@ Metadata Analysis:
 • [Observation about compression, artifacts, or digital fingerprints]
 
 Operational Note:
-• [1-line military implication]
+• [1-line implication]
 
 ANALYST VERDICT: [1 sentence final assessment]"""
 
