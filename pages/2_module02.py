@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
 from utils.gemini import call_gemini_text  # Only keeping gemini import
@@ -186,120 +186,8 @@ def report_box(content):
     </div>
     """, unsafe_allow_html=True)
 
-# ── Sidebar Render Function ─────────────────────────────────────────────────
-def render_sidebar():
-    """Render the sidebar and return the API key"""
-    with st.sidebar:
-        st.markdown("""
-        <div style='text-align: center; padding: 20px 0;'>
-            <div style='font-family: Orbitron, monospace; font-size: 24px; font-weight: 900; 
-                        color: #00ff41; letter-spacing: 6px; text-shadow: 0 0 20px rgba(0,255,65,0.4);'>
-                PROJECT G
-            </div>
-            <div style='font-family: Share Tech Mono, monospace; font-size: 9px; 
-                        color: #5a8c5f; letter-spacing: 3px; margin-top: 5px;'>
-                DEFENSE INTELLIGENCE
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        
-        # Navigation
-        st.markdown("""
-        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
-                    color: #5a8c5f; margin-bottom: 10px;'>
-            NAVIGATION
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Page navigation buttons
-        if st.button("🏠 OVERVIEW", use_container_width=True, key="nav_home"):
-            st.switch_page("app.py")
-        
-        if st.button("🖼️ VISUAL INTEL", use_container_width=True, key="nav_visual"):
-            st.switch_page("pages/1_🔍_Visual_Intel.py")
-        
-        if st.button("📰 TEXT INTEL", use_container_width=True, key="nav_text"):
-            st.rerun()  # Already on this page
-        
-        if st.button("⚔️ TACTICAL", use_container_width=True, key="nav_tactical"):
-            st.info("Module 03 - Coming Soon")
-        
-        st.markdown("---")
-        
-        # API Key Section
-        st.markdown("""
-        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
-                    color: #5a8c5f; margin-bottom: 15px;'>
-            API CONFIGURATION
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Initialize session state if not exists
-        if 'api_key' not in st.session_state:
-            st.session_state.api_key = ""
-        
-        api_key = st.text_input(
-            "Google Gemini API Key",
-            type="password",
-            value=st.session_state.api_key,
-            placeholder="Enter your API key...",
-            help="Required for AI-powered analysis modules",
-            key="api_key_input"
-        )
-        
-        if api_key:
-            st.session_state.api_key = api_key
-            if api_key.startswith("AIza"):
-                st.markdown("""
-                <div style='font-size: 10px; color: #00ff41; margin-top: 5px;'>
-                    ⚡ API Key Valid
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.markdown("""
-                <div style='font-size: 10px; color: #ffb800; margin-top: 5px;'>
-                    ⚠️ Invalid Key Format
-                </div>
-                """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        
-        # System Info
-        st.markdown("""
-        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
-                    color: #5a8c5f; margin-bottom: 10px;'>
-            SYSTEM STATUS
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown("""
-            <div style='font-size: 9px; color: #5a8c5f;'>MODULE</div>
-            <div style='font-size: 11px; color: #00ffe1;'>TEXT INTEL</div>
-            """, unsafe_allow_html=True)
-        with col2:
-            st.markdown("""
-            <div style='font-size: 9px; color: #5a8c5f;'>STATUS</div>
-            <div style='font-size: 11px; color: #00ff41;'>ACTIVE</div>
-            """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        
-        # Footer
-        st.markdown("""
-        <div style='margin-top: 20px;'>
-            <div style='font-size: 9px; color: #004d14; text-align: center; letter-spacing: 1px;'>
-                v1.5.0 | DEFENSE INTEL
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        return st.session_state.api_key
-
 # ── Render Sidebar and Get API Key ──────────────────────────────────────────
+from utils.sidebar import render_sidebar
 api_key = render_sidebar()
 
 # ── Page header ──────────────────────────────────────────────────────────────
