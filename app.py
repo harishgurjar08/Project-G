@@ -316,4 +316,8 @@ st.markdown("""
 <div style='font-size:10px; color:#5a8c5f; text-align:center; letter-spacing:2px;'>
 Developed by Harish Singh &nbsp;|&nbsp; Ai & Data Science Engineer
 </div>
+<div style='font-size:10px; color:#5a8c5f; text-align:center; letter-spacing:2px;'>
+    <a href='https://www.linkedin.com/in/harishgurjar11/' target='_blank' rel='noopener noreferrer' style='color:#5a8c5f; text-decoration:none;'>GitHub</a> &nbsp;|&nbsp; 
+    <a href='https://github.com/harishgurjar08' target='_blank' rel='noopener noreferrer' style='color:#5a8c5f; text-decoration:none;'>LinkedIn</a>
+</div>
 """, unsafe_allow_html=True)
