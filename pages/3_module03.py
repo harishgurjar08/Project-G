@@ -82,7 +82,6 @@ As the GAME MASTER, provide the game's built-in counter-unit database entries fo
 Respond EXACTLY in this format:
 
 TACTICAL RESPONSE BRIEF
-════════════════════════════════════════
 
 Enemy Asset Profile:
 • {asset_input.strip()}
@@ -91,23 +90,7 @@ Threat Level Assessment: [LOW / MEDIUM / HIGH / CRITICAL]
 
 Primary Counter-Systems:
 • [Primary weapon system / platform — real name, e.g. BrahMos Block III]
-• [Secondary counter weapon / platform]
-• [Air defense / EW system if applicable]
 
-Indian Defense Priority Systems:
-• [Most applicable Indian system(s) — be specific]
-• [Capability advantage in this scenario]
-
-Global Best-in-Class Alternatives:
-• [Non-Indian world-class system option 1]
-• [Non-Indian world-class system option 2]
-
-Engagement Strategy:
-• Tactical Advantage     : [key edge to exploit]
-• Detection Method       : [radar / satellite / AWACS / SIGINT approach]
-• Engagement Principle   : [how to neutralize — standoff / close / EW]
-• Recommended Formation  : [brief tactical note on force structure]
-• Vulnerability to Exploit: [identified weak point in enemy assets]
 
 COMMANDER'S BRIEF: [2-line summary of recommended course of action]"""
 
