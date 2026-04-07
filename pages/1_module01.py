@@ -155,7 +155,10 @@ hr { border-color: #1a3d1e !important; }
     z-index: 9999;
 }
 
-#MainMenu, footer, header { visibility: hidden; }
+/* FIXED: Hide Streamlit branding WITHOUT hiding sidebar */
+[data-testid="stHeader"] { visibility: hidden !important; }
+footer { visibility: hidden !important; }
+#MainMenu { visibility: hidden !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -202,7 +205,7 @@ def render_sidebar():
         
         st.markdown("---")
         
-        # Navigation
+        # Navigation using st.page_link
         st.markdown("""
         <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
                     color: #5a8c5f; margin-bottom: 10px;'>
@@ -210,18 +213,10 @@ def render_sidebar():
         </div>
         """, unsafe_allow_html=True)
         
-        # Page navigation buttons
-        if st.button("🏠 OVERVIEW", use_container_width=True, key="nav_home"):
-            st.switch_page("app.py")
-        
-        if st.button("🖼️ VISUAL INTEL", use_container_width=True, key="nav_visual"):
-            st.rerun()  # Already on this page
-        
-        if st.button("📰 TEXT INTEL", use_container_width=True, key="nav_text"):
-            st.info("Module 02 - Coming Soon")
-        
-        if st.button("⚔️ TACTICAL", use_container_width=True, key="nav_tactical"):
-            st.info("Module 03 - Coming Soon")
+        st.page_link("app.py", label="🏠 OVERVIEW", icon="🛡️")
+        st.page_link("pages/1_module01.py", label="🖼️ VISUAL INTEL", icon="🔍")
+        st.page_link("pages/2_module02.py", label="📰 TEXT INTEL", icon="📡")
+        st.page_link("pages/3_module03.py", label="⚔️ TACTICAL", icon="🎯")
         
         st.markdown("---")
         
