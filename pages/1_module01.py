@@ -1,5 +1,6 @@
 import sys
 import os
+from utils.sidebar import render_sidebar, inject_global_css
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
@@ -156,7 +157,7 @@ hr { border-color: #1a3d1e !important; }
 }
 
 /* FIXED: Hide Streamlit branding WITHOUT hiding sidebar */
-[data-testid="stHeader"] { visibility: hidden !important; }
+[data-testid="stHeader"] { height: 0px; }
 footer { visibility: hidden !important; }
 #MainMenu { visibility: hidden !important; }
 </style>
@@ -186,110 +187,7 @@ def report_box(content):
     </div>
     """, unsafe_allow_html=True)
 
-# ── Sidebar Render Function ─────────────────────────────────────────────────
-def render_sidebar():
-    """Render the sidebar and return the API key"""
-    with st.sidebar:
-        st.markdown("""
-        <div style='text-align: center; padding: 20px 0;'>
-            <div style='font-family: Orbitron, monospace; font-size: 24px; font-weight: 900; 
-                        color: #00ff41; letter-spacing: 6px; text-shadow: 0 0 20px rgba(0,255,65,0.4);'>
-                PROJECT G
-            </div>
-            <div style='font-family: Share Tech Mono, monospace; font-size: 9px; 
-                        color: #5a8c5f; letter-spacing: 3px; margin-top: 5px;'>
-                DEFENSE INTELLIGENCE
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        
-        # Navigation using st.page_link
-        st.markdown("""
-        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
-                    color: #5a8c5f; margin-bottom: 10px;'>
-            NAVIGATION
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.page_link("app.py", label="🏠 OVERVIEW", icon="🛡️")
-        st.page_link("pages/1_module01.py", label="🖼️ VISUAL INTEL", icon="🔍")
-        st.page_link("pages/2_module02.py", label="📰 TEXT INTEL", icon="📡")
-        st.page_link("pages/3_module03.py", label="⚔️ TACTICAL", icon="🎯")
-        
-        st.markdown("---")
-        
-        # API Key Section
-        st.markdown("""
-        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
-                    color: #5a8c5f; margin-bottom: 15px;'>
-            API CONFIGURATION
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Initialize session state if not exists
-        if 'api_key' not in st.session_state:
-            st.session_state.api_key = ""
-        
-        api_key = st.text_input(
-            "Google Gemini API Key",
-            type="password",
-            value=st.session_state.api_key,
-            placeholder="Enter your API key...",
-            help="Required for AI-powered analysis modules",
-            key="api_key_input"
-        )
-        
-        if api_key:
-            st.session_state.api_key = api_key
-            if api_key.startswith("AIza"):
-                st.markdown("""
-                <div style='font-size: 10px; color: #00ff41; margin-top: 5px;'>
-                    ⚡ API Key Valid
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.markdown("""
-                <div style='font-size: 10px; color: #ffb800; margin-top: 5px;'>
-                    ⚠️ Invalid Key Format
-                </div>
-                """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        
-        # System Info
-        st.markdown("""
-        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
-                    color: #5a8c5f; margin-bottom: 10px;'>
-            SYSTEM STATUS
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown("""
-            <div style='font-size: 9px; color: #5a8c5f;'>MODULE</div>
-            <div style='font-size: 11px; color: #00ffe1;'>VISUAL INTEL</div>
-            """, unsafe_allow_html=True)
-        with col2:
-            st.markdown("""
-            <div style='font-size: 9px; color: #5a8c5f;'>STATUS</div>
-            <div style='font-size: 11px; color: #00ff41;'>ACTIVE</div>
-            """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        
-        # Footer
-        st.markdown("""
-        <div style='margin-top: 20px;'>
-            <div style='font-size: 9px; color: #004d14; text-align: center; letter-spacing: 1px;'>
-                v1.5.0 | DEFENSE INTEL
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        return st.session_state.api_key
+
 
 # ── Render Sidebar and Get API Key ──────────────────────────────────────────
 api_key = render_sidebar()
