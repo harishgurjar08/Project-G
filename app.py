@@ -305,10 +305,8 @@ st.markdown("""
         <span style='color:#5a8c5f;'>► MODULE 03 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span style='color:#00ff41;'>READY</span>
         <span style='color:#5a8c5f;'> — Tactical Counter Planning</span><br>
-        <span style='color:#5a8c5f;'>► RATE LIMIT &nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span style='color:#ffb800;'>15 REQ/MIN · 1,500 REQ/DAY (FREE)</span><br>
         <span style='color:#5a8c5f;'>► CLASSIFICATION &nbsp;</span>
-        <span style='color:#ffb800;'>RESTRICTED — AUTHORIZED USE ONLY</span>
+        <span style='color:#ffb800;'>RESTRICTED — AUTHORIZED USE ONLY (api key can be limited to authorized user)</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
