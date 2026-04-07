@@ -172,10 +172,122 @@ hr { border-color: #1a3d1e !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Sidebar ──────────────────────────────────────────────────────────────────
-from utils.sidebar import render_sidebar
+# ── Sidebar Render Function ─────────────────────────────────────────────────
+def render_sidebar():
+    """Render the sidebar and return the API key"""
+    with st.sidebar:
+        st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <div style='font-family: Orbitron, monospace; font-size: 24px; font-weight: 900; 
+                        color: #00ff41; letter-spacing: 6px; text-shadow: 0 0 20px rgba(0,255,65,0.4);'>
+                PROJECT G
+            </div>
+            <div style='font-family: Share Tech Mono, monospace; font-size: 9px; 
+                        color: #5a8c5f; letter-spacing: 3px; margin-top: 5px;'>
+                DEFENSE INTELLIGENCE
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("---")
+        
+        # Navigation
+        st.markdown("""
+        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
+                    color: #5a8c5f; margin-bottom: 10px;'>
+            NAVIGATION
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Page navigation buttons
+        if st.button("🏠 OVERVIEW", use_container_width=True, key="nav_home"):
+            st.switch_page("app.py")
+        
+        if st.button("🖼️ VISUAL INTEL", use_container_width=True, key="nav_visual"):
+            st.info("Module 01 - Navigate to Visual Intelligence page")
+        
+        if st.button("📰 TEXT INTEL", use_container_width=True, key="nav_text"):
+            st.info("Module 02 - Navigate to Text Intelligence page")
+        
+        if st.button("⚔️ TACTICAL", use_container_width=True, key="nav_tactical"):
+            st.info("Module 03 - Navigate to Tactical Response page")
+        
+        st.markdown("---")
+        
+        # API Key Section
+        st.markdown("""
+        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
+                    color: #5a8c5f; margin-bottom: 15px;'>
+            API CONFIGURATION
+        </div>
+        """, unsafe_allow_html=True)
+        
+        api_key = st.text_input(
+            "Google Gemini API Key",
+            type="password",
+            placeholder="Enter your API key...",
+            help="Required for AI-powered analysis modules"
+        )
+        
+        if api_key:
+            st.markdown("""
+            <div style='font-size: 10px; color: #00ff41; margin-top: 5px;'>
+                ⚡ API Key Configured
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div style='font-size: 10px; color: #ffb800; margin-top: 5px;'>
+                ⚠️ API Key Required for Analysis
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("---")
+        
+        # System Info
+        st.markdown("""
+        <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
+                    color: #5a8c5f; margin-bottom: 10px;'>
+            SYSTEM STATUS
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("""
+            <div style='font-size: 9px; color: #5a8c5f;'>STATUS</div>
+            <div style='font-size: 11px; color: #00ffe1;'>ONLINE</div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.markdown("""
+            <div style='font-size: 9px; color: #5a8c5f;'>CLASS</div>
+            <div style='font-size: 11px; color: #ffb800;'>RESTRICTED</div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("---")
+        
+        # Footer
+        st.markdown("""
+        <div style='position: fixed; bottom: 20px; left: 20px; right: 20px;'>
+            <div style='font-size: 9px; color: #004d14; text-align: center; letter-spacing: 1px;'>
+                v1.5.0 | DEFENSE INTEL
+            </div>
+            <div style='font-size: 8px; color: #1a3d1e; text-align: center; margin-top: 5px;'>
+                © 2024 PROJECT G
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        return api_key
 
+# ── Initialize session state ─────────────────────────────────────────────────
+if 'api_key' not in st.session_state:
+    st.session_state.api_key = None
+
+# ── Render Sidebar and Get API Key ──────────────────────────────────────────
 api_key = render_sidebar()
+if api_key:
+    st.session_state.api_key = api_key
 
 # ── Home page content ────────────────────────────────────────────────────────
 st.markdown("# PROJECT G")
@@ -260,7 +372,7 @@ st.markdown("""
         <span style='color:#00ff41;'>READY</span>
         <span style='color:#5a8c5f;'> — Tactical Counter Planning</span><br>
         <span style='color:#5a8c5f;'>► CLASSIFICATION &nbsp;</span>
-        <span style='color:#ffb800;'>RESTRICTED — AUTHORIZED USE ONLY (api key can be limited to authorized user)</span>
+        <span style='color:#ffb800;'>RESTRICTED — AUTHORIZED USE ONLY</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -268,10 +380,10 @@ st.markdown("""
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("""
 <div style='font-size:10px; color:#5a8c5f; text-align:center; letter-spacing:2px;'>
-Developed by Harish Singh &nbsp;|&nbsp; Ai & Data Science Engineer
+Developed by Harish Singh &nbsp;|&nbsp; AI & Data Science Engineer
 </div>
 <div style='font-size:10px; color:#5a8c5f; text-align:center; letter-spacing:2px;'>
-    <a href='https://www.linkedin.com/in/harishgurjar11/' target='_blank' rel='noopener noreferrer' style='color:#5a8c5f; text-decoration:none;'>GitHub</a> &nbsp;|&nbsp; 
-    <a href='https://github.com/harishgurjar08' target='_blank' rel='noopener noreferrer' style='color:#5a8c5f; text-decoration:none;'>LinkedIn</a>
+    <a href='https://github.com/harishgurjar08' target='_blank' rel='noopener noreferrer' style='color:#5a8c5f; text-decoration:none;'>GitHub</a> &nbsp;|&nbsp; 
+    <a href='https://www.linkedin.com/in/harishgurjar11/' target='_blank' rel='noopener noreferrer' style='color:#5a8c5f; text-decoration:none;'>LinkedIn</a>
 </div>
 """, unsafe_allow_html=True)
