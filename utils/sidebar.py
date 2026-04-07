@@ -127,9 +127,7 @@ def inject_global_css():
     [data-testid="stMetricValue"] { color: #00ff41 !important; font-family: 'Orbitron', monospace !important; }
 
     hr { border-color: #1a3d1e !important; }
-    [data-testid="stHeader"] { display: none !important; }
-    footer { display: none !important; }
-    #MainMenu { display: none !important; }
+    #MainMenu, footer, header { visibility: hidden; }
 
     .stApp::before {
         content: '';
