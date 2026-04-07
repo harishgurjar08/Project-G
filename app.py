@@ -191,7 +191,7 @@ def render_sidebar():
         
         st.markdown("---")
         
-        # Navigation
+        # Navigation using st.page_link (better than buttons)
         st.markdown("""
         <div style='font-family: Orbitron, monospace; font-size: 10px; letter-spacing: 2px; 
                     color: #5a8c5f; margin-bottom: 10px;'>
@@ -199,18 +199,11 @@ def render_sidebar():
         </div>
         """, unsafe_allow_html=True)
         
-        # Page navigation buttons
-        if st.button("🏠 OVERVIEW", use_container_width=True, key="nav_home"):
-            st.switch_page("app.py")
-        
-        if st.button("🖼️ VISUAL INTEL", use_container_width=True, key="nav_visual"):
-            st.info("Module 01 - Navigate to Visual Intelligence page")
-        
-        if st.button("📰 TEXT INTEL", use_container_width=True, key="nav_text"):
-            st.info("Module 02 - Navigate to Text Intelligence page")
-        
-        if st.button("⚔️ TACTICAL", use_container_width=True, key="nav_tactical"):
-            st.info("Module 03 - Navigate to Tactical Response page")
+        # Use st.page_link for proper navigation
+        st.page_link("app.py", label="🏠 OVERVIEW", icon="🛡️")
+        st.page_link("pages/1_module01.py", label="🖼️ VISUAL INTEL", icon="🔍")
+        st.page_link("pages/2_module02.py", label="📰 TEXT INTEL", icon="📡")
+        st.page_link("pages/3_module03.py", label="⚔️ TACTICAL", icon="🎯")
         
         st.markdown("---")
         
@@ -222,23 +215,37 @@ def render_sidebar():
         </div>
         """, unsafe_allow_html=True)
         
+        # Initialize session state if not exists
+        if 'api_key' not in st.session_state:
+            st.session_state.api_key = ""
+        
         api_key = st.text_input(
             "Google Gemini API Key",
             type="password",
+            value=st.session_state.api_key,
             placeholder="Enter your API key...",
-            help="Required for AI-powered analysis modules"
+            help="Required for AI-powered analysis modules",
+            key="api_key_input"
         )
         
         if api_key:
-            st.markdown("""
-            <div style='font-size: 10px; color: #00ff41; margin-top: 5px;'>
-                ⚡ API Key Configured
-            </div>
-            """, unsafe_allow_html=True)
+            st.session_state.api_key = api_key
+            if api_key.startswith("AIza"):
+                st.markdown("""
+                <div style='font-size: 10px; color: #00ff41; margin-top: 5px;'>
+                    ⚡ API Key Valid
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown("""
+                <div style='font-size: 10px; color: #ffb800; margin-top: 5px;'>
+                    ⚠️ Invalid Key Format
+                </div>
+                """, unsafe_allow_html=True)
         else:
             st.markdown("""
             <div style='font-size: 10px; color: #ffb800; margin-top: 5px;'>
-                ⚠️ API Key Required for Analysis
+                ⚠️ API Key Required
             </div>
             """, unsafe_allow_html=True)
         
@@ -268,7 +275,7 @@ def render_sidebar():
         
         # Footer
         st.markdown("""
-        <div style='position: fixed; bottom: 20px; left: 20px; right: 20px;'>
+        <div style='margin-top: 20px;'>
             <div style='font-size: 9px; color: #004d14; text-align: center; letter-spacing: 1px;'>
                 v1.5.0 | DEFENSE INTEL
             </div>
@@ -278,16 +285,10 @@ def render_sidebar():
         </div>
         """, unsafe_allow_html=True)
         
-        return api_key
-
-# ── Initialize session state ─────────────────────────────────────────────────
-if 'api_key' not in st.session_state:
-    st.session_state.api_key = None
+        return st.session_state.api_key
 
 # ── Render Sidebar and Get API Key ──────────────────────────────────────────
 api_key = render_sidebar()
-if api_key:
-    st.session_state.api_key = api_key
 
 # ── Home page content ────────────────────────────────────────────────────────
 st.markdown("# PROJECT G")
