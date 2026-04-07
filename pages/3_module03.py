@@ -117,7 +117,7 @@ COMMANDER'S BRIEF: [2-line summary of recommended course of action]"""
             m1, m2, m3 = st.columns(3)
             m1.metric("THREAT LEVEL", threat_level)
             m2.metric("ASSET INPUT", asset_input.strip()[:30] + ("..." if len(asset_input) > 30 else ""))
-            m3.metric("ANALYSIS ENGINE", "GEMINI 1.5 FLASH")
+            m3.metric("ANALYSIS ENGINE", "1.5 flash")
 
         except Exception as e:
             st.error(f"⚠ ERROR: {e}")
