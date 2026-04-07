@@ -66,7 +66,7 @@ if st.button("▶ RUN CREDIBILITY ANALYSIS", disabled=btn_disabled, key="analyze
     SYSTEM = (
         "You are PROJECT G, a Defense Intelligence AI specializing in textual intelligence. "
         "Detect misinformation, propaganda, and psychological operations in news content. "
-        "Respond in strict military command-center format. Be analytical, factual, and concise. "
+        "Respond in format. Be analytical, factual, and concise. "
         "No casual language."
     )
 
@@ -83,7 +83,7 @@ NEWS CONTENT:
 Respond EXACTLY in this format:
 
 TEXTUAL INTELLIGENCE REPORT
-════════════════════════════════════════
+
 
 Credibility Status  : [REAL / LIKELY FAKE / MANIPULATED INFORMATION / UNVERIFIABLE]
 Confidence Level    : XX%
