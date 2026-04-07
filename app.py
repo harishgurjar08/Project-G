@@ -314,9 +314,6 @@ st.markdown("""
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("""
 <div style='font-size:10px; color:#5a8c5f; text-align:center; letter-spacing:2px;'>
-PROJECT G v2.0 &nbsp;|&nbsp; CLEARANCE: AUTHORIZED &nbsp;|&nbsp; ENGINE: 1.5 FLASH (FREE TIER)
-</div>
-<div style='font-size:10px; color:#5a8c5f; text-align:center; letter-spacing:2px;'>
 Developed by Harish Singh &nbsp;|&nbsp; Ai & Data Science Engineer
 </div>
 """, unsafe_allow_html=True)
