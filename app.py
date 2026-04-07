@@ -216,7 +216,7 @@ with st.sidebar:
     st.markdown("<hr style='border-color:#1a3d1e; margin: 16px 0;'>", unsafe_allow_html=True)
     st.markdown("""
     <div style='font-size:10px; color:#5a8c5f; line-height:2;'>
-    ► ENGINE &nbsp;&nbsp; <span style='color:#00ffe1'>GEMINI 1.5 FLASH</span><br>
+    ► ENGINE &nbsp;&nbsp; <span style='color:#00ffe1'>1.5 FLASH</span><br>
     ► COST &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#00ff41'>FREE TIER</span><br>
     ► LIMIT &nbsp;&nbsp;&nbsp; <span style='color:#ffb800'>15 REQ/MIN</span><br>
     ► STATUS &nbsp;&nbsp; <span style='color:#00ff41'>ACTIVE</span>
